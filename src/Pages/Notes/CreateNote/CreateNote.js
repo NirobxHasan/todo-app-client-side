@@ -1,21 +1,44 @@
 import React, { useState } from 'react';
 import { Card, Button } from 'react-bootstrap';
 import DatePicker from 'react-date-picker';
-
+import { useHistory } from 'react-router';
+import useAuth from '../../../hooks/useAuth';
 const CreateNote = () => {
     const [date, setDate] = useState(new Date());
     const [title, setTitle] = useState('');
     const [note, setNote] = useState('');
+    const history = useHistory();
+    const { user } = useAuth();
 
     const handleNoteForm = (e) => {
         e.preventDefault();
-        const data = { title, note, date: date.toLocaleDateString() };
+        const data = {
+            email: user.email,
+            title,
+            note,
+            date: date.toLocaleDateString()
+        };
+
+        fetch('http://localhost:5000/notes', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.insertedId) {
+                    alert('Successfully added notes!');
+                    history.push('/allnotes');
+                }
+            });
         console.log(data);
     };
 
     return (
         <div>
-            <div class="container-lg">
+            <div class="container-lg mt-5">
                 <Card>
                     <Card.Header as="h5">Create Notes</Card.Header>
                     <Card.Body>

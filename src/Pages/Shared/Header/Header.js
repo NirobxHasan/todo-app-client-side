@@ -1,7 +1,10 @@
 import React from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import useAuth from '../../../hooks/useAuth';
+import './Header.css';
 const Header = () => {
+    const { user, logOut } = useAuth();
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Container>
@@ -12,15 +15,49 @@ const Header = () => {
                         <Nav.Link as={Link} to="/home">
                             Home
                         </Nav.Link>
-                        <Nav.Link as={Link} to="/Note">
-                            Note
-                        </Nav.Link>
+
+                        {user.email && (
+                            <Nav.Link as={Link} to="/createnote">
+                                Create Note
+                            </Nav.Link>
+                        )}
+                        {user.email && (
+                            <Nav.Link as={Link} to="/allnotes">
+                                All Notes
+                            </Nav.Link>
+                        )}
                     </Nav>
+
                     <Nav>
-                        <Nav.Link href="#deets">More deets</Nav.Link>
-                        <Nav.Link eventKey={2} href="#memes">
-                            Dank memes
-                        </Nav.Link>
+                        {user.displayName ? (
+                            <Navbar.Text style={{ color: '#fff' }}>
+                                Signed in as:{' '}
+                                <a href="#login" style={{ color: '#fff' }}>
+                                    {user.displayName}
+                                </a>
+                            </Navbar.Text>
+                        ) : (
+                            ''
+                        )}
+                        {user.email ? (
+                            <button
+                                className="ms-3 log-btn"
+                                onClick={() => logOut()}
+                            >
+                                Logout
+                            </button>
+                        ) : (
+                            <div>
+                                <Link to="/login">
+                                    <button className="log-btn">Login</button>
+                                </Link>
+                                <Link to="/registration">
+                                    <button className="log-btn">
+                                        Registration
+                                    </button>
+                                </Link>
+                            </div>
+                        )}
                     </Nav>
                 </Navbar.Collapse>
             </Container>

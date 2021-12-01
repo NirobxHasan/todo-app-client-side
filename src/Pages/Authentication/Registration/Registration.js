@@ -1,14 +1,11 @@
 import React from 'react';
 import { Card, Container, Button, Alert } from 'react-bootstrap';
 import googleIcon from '../../../images/icon/google.png';
-// import useAuth from '../../../hooks/useAuth';
 import { useHistory, useLocation } from 'react-router';
 import { useForm } from 'react-hook-form';
-import useFirebase from '../../../hooks/useFirebase';
+import useAuth from '../../../hooks/useAuth';
 const Registration = () => {
-    const { loginWithGoogle, authError, userRegistration, user, logOut } =
-        useFirebase();
-
+    const { loginWithGoogle, authError, userRegistration } = useAuth();
     //routing
     const location = useLocation();
     const history = useHistory();
