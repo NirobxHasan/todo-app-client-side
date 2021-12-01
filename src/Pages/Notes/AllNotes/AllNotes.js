@@ -7,16 +7,29 @@ const AllNotes = () => {
     const [notes, setNotes] = useState([]);
     const { user } = useAuth();
 
-    const handleDelete = (id) => {
-        console.log(id);
-        fetch(`http://localhost:5000/notes/`);
-    };
-
     useEffect(() => {
         fetch(`http://localhost:5000/notes/${user.email}`)
             .then((res) => res.json())
             .then((data) => setNotes(data));
     }, []);
+
+    const handleDelete = (id) => {
+        console.log(id);
+
+        fetch(`http://localhost:5000/notes/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.deletedCount) {
+                    const rest_notes = notes.filter((note) => note._id !== id);
+                    setNotes(rest_notes);
+                }
+            });
+    };
 
     return (
         <Container>
