@@ -10,6 +10,7 @@ import AuthProvider from './context/AuthProvider';
 import PrivateRoute from './Pages/Authentication/PrivateRoute/PrivateRoute';
 import AllNotes from './Pages/Notes/AllNotes/AllNotes';
 import PurchasePackage from './Pages/Subscription/PurchesPackage/PurchasePackage';
+import Subscriptions from './Pages/Subscription/Subscriptions/Subscriptions';
 function App() {
     return (
         <div>
@@ -22,6 +23,9 @@ function App() {
                         </Route>
                         <Route path="/home">
                             <Home />
+                        </Route>
+                        <Route path="/subscription">
+                            <Subscriptions />
                         </Route>
                         <PrivateRoute path="/createnote">
                             <CreateNote />

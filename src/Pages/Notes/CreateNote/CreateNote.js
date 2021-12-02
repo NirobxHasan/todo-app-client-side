@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, Button } from 'react-bootstrap';
 import DatePicker from 'react-date-picker';
 import { useHistory } from 'react-router';
@@ -10,8 +10,26 @@ const CreateNote = () => {
     const history = useHistory();
     const { user } = useAuth();
 
+    const [userInfo, setuserInfo] = useState({});
+    useEffect(() => {
+        fetch(`http://localhost:5000/users/${user.email}`)
+            .then((res) => res.json())
+            .then((user) => setuserInfo(user));
+    }, []);
+
     const handleNoteForm = (e) => {
         e.preventDefault();
+        if (userInfo?.subscription?.limit <= 0) {
+            alert('Please purchase package!');
+            history.push('/subscription');
+            return;
+        }
+        if (!userInfo.subscription) {
+            alert('Please purchase package!');
+            history.push('/subscription');
+            return;
+        }
+
         const data = {
             email: user.email,
             title,
@@ -40,7 +58,13 @@ const CreateNote = () => {
         <div>
             <div className="container-lg mt-5">
                 <Card>
-                    <Card.Header as="h5">Create Notes</Card.Header>
+                    <Card.Header as="h5">
+                        Create Notes: You can add{' '}
+                        {userInfo?.subscription?.limit
+                            ? userInfo.subscription.limit
+                            : 0}{' '}
+                        more notes
+                    </Card.Header>
                     <Card.Body>
                         <form onSubmit={handleNoteForm}>
                             <div className="mb-2 mx-auto">

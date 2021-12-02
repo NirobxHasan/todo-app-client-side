@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import useAuth from '../../../hooks/useAuth';
 
 const Login = () => {
-    const { loginWithGoogle, loginWithEmail, authError } = useAuth();
+    const { loginWithEmail, authError } = useAuth();
 
     const location = useLocation();
     const history = useHistory();
@@ -18,12 +18,6 @@ const Login = () => {
         loginWithEmail(data.email, data.password, history, location);
     };
 
-    const hangleGoogleLogin = () => {
-        loginWithGoogle().then((result) => {
-            //redirect
-            history.push(redirect_uri);
-        });
-    };
     return (
         <Container className="d-flex justify-content-center align-items-center login-container">
             <Card style={{ width: '30rem' }}>
@@ -72,14 +66,6 @@ const Login = () => {
                             {authError}
                         </Alert>
                     )}
-
-                    <button
-                        className="social-login-btn mt-5"
-                        onClick={hangleGoogleLogin}
-                    >
-                        {' '}
-                        <img src={googleIcon} alt="" /> Login with Google
-                    </button>
                 </Card.Body>
             </Card>
         </Container>

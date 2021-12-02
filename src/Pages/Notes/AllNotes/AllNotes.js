@@ -30,6 +30,12 @@ const AllNotes = () => {
             .then((data) => setNotes(data));
     }, [updateToggle, filterDate]);
 
+    useEffect(() => {
+        fetch(`http://localhost:5000/notes/${user.email}`)
+            .then((res) => res.json())
+            .then((data) => setNotes(data));
+    }, [updateToggle, allNotes]);
+
     //Handle Delete
     const handleDelete = (id) => {
         console.log(id);
@@ -38,7 +44,8 @@ const AllNotes = () => {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json'
-            }
+            },
+            body: JSON.stringify(user)
         })
             .then((res) => res.json())
             .then((data) => {
@@ -59,6 +66,9 @@ const AllNotes = () => {
 
     const handleShow = (id) => {
         console.log(id);
+        setTitle('');
+        setNote('');
+        setDate('');
         fetch(`http://localhost:5000/note/${id}`)
             .then((res) => res.json())
             .then((data) => {

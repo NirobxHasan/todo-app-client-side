@@ -5,7 +5,7 @@ import { useHistory, useLocation } from 'react-router';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../../hooks/useAuth';
 const Registration = () => {
-    const { loginWithGoogle, authError, userRegistration } = useAuth();
+    const { authError, userRegistration } = useAuth();
     //routing
     const location = useLocation();
     const history = useHistory();
@@ -18,12 +18,6 @@ const Registration = () => {
             return;
         }
         userRegistration(data.name, data.email, data.password, history);
-    };
-
-    const hangleGoogleLogin = () => {
-        loginWithGoogle().then((result) => {
-            history.push(redirect_uri);
-        });
     };
 
     return (
@@ -88,13 +82,6 @@ const Registration = () => {
                             {authError}
                         </Alert>
                     )}
-                    <button
-                        className="social-login-btn mt-2"
-                        onClick={hangleGoogleLogin}
-                    >
-                        {' '}
-                        <img src={googleIcon} alt="" /> Login with Google
-                    </button>
                 </Card.Body>
             </Card>
         </Container>

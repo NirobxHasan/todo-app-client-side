@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
 import './Header.css';
 const Header = () => {
     const { user, logOut } = useAuth();
+
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Container>
@@ -15,6 +16,7 @@ const Header = () => {
                         <Nav.Link as={Link} to="/home">
                             Home
                         </Nav.Link>
+                        {}
 
                         {user.email && (
                             <Nav.Link as={Link} to="/createnote">
@@ -29,6 +31,10 @@ const Header = () => {
                     </Nav>
 
                     <Nav>
+                        <Nav.Link className="me-3" as={Link} to="/subscription">
+                            Subscription
+                        </Nav.Link>
+
                         {user.displayName ? (
                             <Navbar.Text style={{ color: '#fff' }}>
                                 Signed in as:{' '}
