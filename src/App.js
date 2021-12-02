@@ -9,6 +9,7 @@ import Registration from './Pages/Authentication/Registration/Registration';
 import AuthProvider from './context/AuthProvider';
 import PrivateRoute from './Pages/Authentication/PrivateRoute/PrivateRoute';
 import AllNotes from './Pages/Notes/AllNotes/AllNotes';
+import PurchasePackage from './Pages/Subscription/PurchesPackage/PurchasePackage';
 function App() {
     return (
         <div>
@@ -27,6 +28,9 @@ function App() {
                         </PrivateRoute>
                         <PrivateRoute path="/allnotes">
                             <AllNotes />
+                        </PrivateRoute>
+                        <PrivateRoute path="/purchasePackage/:id">
+                            <PurchasePackage />
                         </PrivateRoute>
                         <Route path="/login">
                             <Login />

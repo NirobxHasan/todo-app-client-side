@@ -38,36 +38,36 @@ const CreateNote = () => {
 
     return (
         <div>
-            <div class="container-lg mt-5">
+            <div className="container-lg mt-5">
                 <Card>
                     <Card.Header as="h5">Create Notes</Card.Header>
                     <Card.Body>
                         <form onSubmit={handleNoteForm}>
-                            <div class="mb-2 mx-auto">
-                                <label for="title" class="form-label">
+                            <div className="mb-2 mx-auto">
+                                <label htmlFor="title" className="form-label">
                                     Title
                                 </label>
                                 <input
                                     type="text"
-                                    class="form-control"
+                                    className="form-control"
                                     id="title"
                                     required
                                     onBlur={(e) => setTitle(e.target.value)}
                                 />
                             </div>
-                            <div class="mb-2">
-                                <label for="Note" class="form-label">
+                            <div className="mb-2">
+                                <label htmlFor="Note" className="form-label">
                                     Write your note
                                 </label>
                                 <textarea
-                                    class="form-control"
+                                    className="form-control"
                                     id="note"
                                     rows="3"
                                     onBlur={(e) => setNote(e.target.value)}
                                     required
                                 ></textarea>
                             </div>
-                            <div class="mb-1">
+                            <div className="mb-1">
                                 <DatePicker
                                     className="p-3"
                                     style={{ padding: '10px' }}
