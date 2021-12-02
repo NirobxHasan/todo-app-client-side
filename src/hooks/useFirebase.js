@@ -5,7 +5,10 @@ import {
     onAuthStateChanged,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
+    updateEmail,
     updateProfile,
+    deleteUser,
+    updatePassword,
     signOut
 } from 'firebase/auth';
 import { useEffect, useState } from 'react';
@@ -99,6 +102,61 @@ const useFirebase = () => {
             });
     };
 
+    //Update Profile
+    const updateProfileInfo = (name, email, password) => {
+        updateProfile(auth.currentUser, {
+            displayName: name
+            // photoURL: 'https://example.com/jane-q-user/profile.jpg'
+        })
+            .then(() => {})
+            .catch((error) => {
+                setAuthError(error.massage);
+            });
+
+        updateEmail(auth.currentUser, email)
+            .then(() => {})
+            .catch((error) => {
+                console.log(error);
+                setAuthError(error.massage);
+            });
+
+        if (password) {
+            updatePassword(user, password)
+                .then(() => {
+                    // Update successful.
+                })
+                .catch((error) => {
+                    setAuthError(error.massage);
+                });
+        }
+        alert('successfully update');
+    };
+
+    //Delete User
+    const deleteAccount = () => {
+        const user = auth.currentUser;
+
+        deleteUser(user)
+            .then(() => {
+                fetch(`http://localhost:5000/users/${user.email}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(user)
+                })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        if (data.deletedCount) {
+                            alert('Successfully User deleted!');
+                        }
+                    });
+            })
+            .catch((error) => {
+                setAuthError(error.massage);
+            });
+    };
+
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -118,6 +176,8 @@ const useFirebase = () => {
         loginWithEmail,
         setIsLoading,
         authError,
+        updateProfileInfo,
+        deleteAccount,
         logOut
     };
 };

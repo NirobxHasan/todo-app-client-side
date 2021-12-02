@@ -38,9 +38,9 @@ const Header = () => {
                         {user.displayName ? (
                             <Navbar.Text style={{ color: '#fff' }}>
                                 Signed in as:{' '}
-                                <a href="#login" style={{ color: '#fff' }}>
+                                <Link to="/profile" style={{ color: '#fff' }}>
                                     {user.displayName}
-                                </a>
+                                </Link>
                             </Navbar.Text>
                         ) : (
                             ''
