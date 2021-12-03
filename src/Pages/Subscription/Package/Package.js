@@ -13,6 +13,7 @@ const Package = ({ sub }) => {
     }, []);
 
     const freeTrial = () => {
+        console.log(userInfo);
         if (userInfo.subscription) {
             alert(
                 `Sorry! You cannot take a free trial. You are already in ${userInfo.subscription.package_name} package.`

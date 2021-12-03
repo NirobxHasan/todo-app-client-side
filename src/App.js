@@ -1,6 +1,3 @@
-import './App.css';
-import { Button } from 'react-bootstrap';
-import Header from './Pages/Shared/Header/Header';
 import CreateNote from './Pages/Notes/CreateNote/CreateNote';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './Pages/Home/Home/Home';
@@ -12,12 +9,17 @@ import AllNotes from './Pages/Notes/AllNotes/AllNotes';
 import PurchasePackage from './Pages/Subscription/PurchesPackage/PurchasePackage';
 import Subscriptions from './Pages/Subscription/Subscriptions/Subscriptions';
 import Profile from './Pages/Profile/Profile';
+import AdminRoute from './Pages/Authentication/AdminRoute/AdminRoute';
+import Users from './Pages/Admin/Users/Users';
+import NavBar from './Pages/Shared/NavBar/NavBar';
+import AddSubscription from './Pages/Admin/AdminSubscription/AddSubscription';
+import AllSubscription from './Pages/Admin/AdminSubscription/AllSubscription';
 function App() {
     return (
         <div>
             <AuthProvider>
                 <Router>
-                    <Header />
+                    <NavBar />
                     <Switch>
                         <Route exact path="/">
                             <Home />
@@ -46,6 +48,15 @@ function App() {
                         <Route path="/registration">
                             <Registration />
                         </Route>
+                        <AdminRoute path="/users">
+                            <Users />
+                        </AdminRoute>
+                        <AdminRoute path="/adminSubscription">
+                            <AddSubscription />
+                        </AdminRoute>
+                        <AdminRoute path="/allSubscription">
+                            <AllSubscription />
+                        </AdminRoute>
                     </Switch>
                 </Router>
             </AuthProvider>

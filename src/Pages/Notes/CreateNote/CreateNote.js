@@ -18,6 +18,7 @@ const CreateNote = () => {
     }, []);
 
     const handleNoteForm = (e) => {
+        console.log(userInfo);
         e.preventDefault();
         if (userInfo?.subscription?.limit <= 0) {
             alert('Please purchase package!');
