@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
 import './Header.css';
 const Header = () => {
-    const { user, admin, logOut } = useAuth();
+    const { user, logOut } = useAuth();
 
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -25,7 +25,7 @@ const Header = () => {
                         )}
                         {user.email && (
                             <Nav.Link as={Link} to="/allnotes">
-                                Notes
+                                My notes
                             </Nav.Link>
                         )}
                     </Nav>

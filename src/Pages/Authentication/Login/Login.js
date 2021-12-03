@@ -1,7 +1,7 @@
 import React from 'react';
-import { Card, Container, Button, Alert } from 'react-bootstrap';
+import { Card, Container, Alert } from 'react-bootstrap';
 import './Login.css';
-import googleIcon from '../../../images/icon/google.png';
+// import googleIcon from '../../../images/icon/google.png';
 import { useHistory, useLocation } from 'react-router';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../../hooks/useAuth';
@@ -11,7 +11,7 @@ const Login = () => {
 
     const location = useLocation();
     const history = useHistory();
-    const redirect_uri = location.state?.from || '/home';
+    // const redirect_uri = location.state?.from || '/home';
 
     const { register, handleSubmit } = useForm();
     const onSubmit = (data) => {

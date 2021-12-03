@@ -1,6 +1,7 @@
 .log-btn {
     background: none;
     border: none;
+    padding-top: 7px;
     color: lightgray;
-    font-size: 1.1rem;
+    font-size: 1rem;
 }

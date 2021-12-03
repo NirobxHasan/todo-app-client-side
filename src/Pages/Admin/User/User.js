@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Button, Row, Col, Modal } from 'react-bootstrap';
+import { Card, Button, Row, Col } from 'react-bootstrap';
 const User = ({ user, handleDelete, handleShow }) => {
     return (
         <div>

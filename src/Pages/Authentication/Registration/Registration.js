@@ -1,15 +1,14 @@
 import React from 'react';
-import { Card, Container, Button, Alert } from 'react-bootstrap';
-import googleIcon from '../../../images/icon/google.png';
-import { useHistory, useLocation } from 'react-router';
+import { Card, Container, Alert } from 'react-bootstrap';
+// import googleIcon from '../../../images/icon/google.png';
+import { useHistory } from 'react-router';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../../hooks/useAuth';
 const Registration = () => {
     const { authError, userRegistration } = useAuth();
     //routing
-    const location = useLocation();
+
     const history = useHistory();
-    const redirect_uri = location.state?.from || '/home';
 
     const { register, handleSubmit } = useForm();
     const onSubmit = (data) => {

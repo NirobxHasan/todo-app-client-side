@@ -21,7 +21,7 @@
     display: flex;
     justify-content: center;
     margin-bottom: 10px;
-    background-color: #f79f1f;
+    background-color: #5c5c5c;
     border: 0;
     color: white;
     font-size: 1.2rem;
@@ -32,6 +32,6 @@
 .registration-login-btn {
     border: 0;
     background-color: #fff;
-    color: #f79f1f;
+    color: #464646;
     font-size: 1.1rem;
 }

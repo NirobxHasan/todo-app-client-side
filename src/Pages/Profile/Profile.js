@@ -9,9 +9,8 @@ const Profile = () => {
     const updateProfile = (e) => {
         e.preventDefault();
         const newInfo = { email, name };
-        console.log(newInfo, user.email);
 
-        fetch(`http://localhost:5000/users/${user.email}`, {
+        fetch(`https://quiet-crag-38399.herokuapp.com/users/${user.email}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
@@ -19,9 +18,7 @@ const Profile = () => {
             body: JSON.stringify(newInfo)
         })
             .then((res) => res.json)
-            .then((data) => {
-                console.log(data);
-            });
+            .then((data) => {});
         updateProfileInfo(name, email, password);
         window.location.reload();
     };

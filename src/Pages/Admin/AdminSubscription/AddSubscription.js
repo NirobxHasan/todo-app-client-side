@@ -12,7 +12,7 @@ const AddSubscription = () => {
         // setPrice(parseInt(price));
         // setLimit(parseInt(limit));
         const sub = { package_name, price, limit };
-        fetch('http://localhost:5000/subscription', {
+        fetch('https://quiet-crag-38399.herokuapp.com/subscription', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

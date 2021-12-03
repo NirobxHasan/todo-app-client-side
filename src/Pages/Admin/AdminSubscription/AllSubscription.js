@@ -6,14 +6,14 @@ const AllSubscription = () => {
     const [subscriptions, setSubscription] = useState([]);
     const [updateToggle, setUpdateToggle] = useState(false);
     useEffect(() => {
-        fetch('http://localhost:5000/subscriptions')
+        fetch('https://quiet-crag-38399.herokuapp.com/subscriptions')
             .then((res) => res.json())
             .then((data) => setSubscription(data));
     }, [updateToggle]);
 
     //Handle Delete
     const handleDelete = (id) => {
-        fetch(`http://localhost:5000/subscription/${id}`, {
+        fetch(`https://quiet-crag-38399.herokuapp.com/subscription/${id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json'
@@ -39,19 +39,17 @@ const AllSubscription = () => {
     const handleClose = () => setShow(false);
 
     const handleShow = (id) => {
-        console.log(id);
         setPackage_name('');
         setsinglePackage({});
         setPrice(0);
         setLimit(0);
-        fetch(`http://localhost:5000/subscriptions/${id}`)
+        fetch(`https://quiet-crag-38399.herokuapp.com/subscriptions/${id}`)
             .then((res) => res.json())
             .then((data) => {
                 setsinglePackage(data);
                 setPackage_name(data.package_name);
                 setPrice(data.price);
                 setLimit(data.limit);
-                console.log(data);
             });
 
         setShow(true);
@@ -63,13 +61,16 @@ const AllSubscription = () => {
             price,
             limit
         };
-        fetch(`http://localhost:5000/subscription/${singlePackage._id}`, {
-            method: 'PUT',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(updatedPack)
-        })
+        fetch(
+            `https://quiet-crag-38399.herokuapp.com/subscription/${singlePackage._id}`,
+            {
+                method: 'PUT',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(updatedPack)
+            }
+        )
             .then((res) => res.json())
             .then((result) => {
                 if (result.matchedCount) {

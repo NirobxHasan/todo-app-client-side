@@ -5,7 +5,7 @@ const Users = () => {
     const [users, setUsers] = useState([]);
     const [updateToggle, setUpdateToggle] = useState(false);
     useEffect(() => {
-        fetch('http://localhost:5000/users')
+        fetch('https://quiet-crag-38399.herokuapp.com/users')
             .then((req) => req.json())
             .then((data) => setUsers(data));
     }, [updateToggle]);
@@ -18,10 +18,9 @@ const Users = () => {
     const handleClose = () => setShow(false);
 
     const handleShow = (id) => {
-        console.log(id);
         setName('');
         setEmail('');
-        fetch(`http://localhost:5000/user/${id}`)
+        fetch(`https://quiet-crag-38399.herokuapp.com/user/${id}`)
             .then((res) => res.json())
             .then((data) => {
                 setUser(data);
@@ -38,7 +37,7 @@ const Users = () => {
             name,
             email
         };
-        fetch(`http://localhost:5000/users/${user.email}`, {
+        fetch(`https://quiet-crag-38399.herokuapp.com/users/${user.email}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
@@ -56,7 +55,7 @@ const Users = () => {
 
     //Handle Delete
     const handleDelete = (id) => {
-        fetch(`http://localhost:5000/user/${id}`, {
+        fetch(`https://quiet-crag-38399.herokuapp.com/user/${id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json'

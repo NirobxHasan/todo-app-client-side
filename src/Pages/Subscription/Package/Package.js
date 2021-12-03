@@ -7,26 +7,28 @@ const Package = ({ sub }) => {
     const { user } = useAuth();
     const [userInfo, setuserInfo] = useState({});
     useEffect(() => {
-        fetch(`http://localhost:5000/users/${user.email}`)
+        fetch(`https://quiet-crag-38399.herokuapp.com/users/${user.email}`)
             .then((res) => res.json())
             .then((user) => setuserInfo(user));
     }, []);
 
     const freeTrial = () => {
-        console.log(userInfo);
         if (userInfo.subscription) {
             alert(
                 `Sorry! You cannot take a free trial. You are already in ${userInfo.subscription.package_name} package.`
             );
             return;
         }
-        fetch(`http://localhost:5000/users_subscription/${user.email}`, {
-            method: 'PUT',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(sub)
-        })
+        fetch(
+            `https://quiet-crag-38399.herokuapp.com/users_subscription/${user.email}`,
+            {
+                method: 'PUT',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(sub)
+            }
+        )
             .then((res) => res.json())
             .then((result) => {
                 if (result.matchedCount) {

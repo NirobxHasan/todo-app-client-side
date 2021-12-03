@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Card, Button, Row, Col, Modal } from 'react-bootstrap';
+import React from 'react';
+import { Card, Button, Row, Col } from 'react-bootstrap';
 
 const Note = ({ note, handleDelete, handleShow }) => {
     return (

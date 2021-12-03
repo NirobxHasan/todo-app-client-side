@@ -1,7 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import useAuth from '../../../hooks/useAuth';
+import { useHistory } from 'react-router';
 const Payment = ({ subPackage }) => {
     const { user } = useAuth();
+    const history = useHistory();
     const paypal = useRef();
     useEffect(() => {
         window.paypal
@@ -24,7 +26,7 @@ const Payment = ({ subPackage }) => {
                     const order = await actions.order.capture();
                     alert('Successfully paid');
                     fetch(
-                        `http://localhost:5000/users_subscription/${user.email}`,
+                        `https://quiet-crag-38399.herokuapp.com/users_subscription/${user.email}`,
                         {
                             method: 'PUT',
                             headers: {
@@ -36,14 +38,11 @@ const Payment = ({ subPackage }) => {
                         .then((res) => res.json())
                         .then((result) => {
                             if (result.matchedCount) {
-                                // history.push()
+                                history.push('/createnote');
                             }
                         });
-                    console.log(order);
                 },
-                onError: (err) => {
-                    console.log(err);
-                }
+                onError: (err) => {}
             })
             .render(paypal.current);
     }, []);

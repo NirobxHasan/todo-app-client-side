@@ -9,6 +9,7 @@ import {
     updateProfile,
     deleteUser,
     updatePassword,
+    getIdToken,
     signOut
 } from 'firebase/auth';
 import { useEffect, useState } from 'react';
@@ -39,7 +40,7 @@ const useFirebase = () => {
                 })
                     .then(() => {})
                     .catch((error) => {});
-                history.push('/');
+                history.push('/createnote');
             })
             .catch((error) => {
                 setAuthError(error.message);
@@ -89,8 +90,7 @@ const useFirebase = () => {
     //Save user to the database
     const saveUser = (email, displayName, method) => {
         const user = { email, displayName };
-        console.log(user);
-        fetch('http://localhost:5000/users', {
+        fetch('https://quiet-crag-38399.herokuapp.com/users', {
             method: method,
             headers: {
                 'content-type': 'application/json'
@@ -98,9 +98,7 @@ const useFirebase = () => {
             body: JSON.stringify(user)
         })
             .then((res) => res.json)
-            .then((data) => {
-                console.log(data);
-            });
+            .then((data) => {});
     };
 
     //Update Profile
@@ -117,7 +115,6 @@ const useFirebase = () => {
         updateEmail(auth.currentUser, email)
             .then(() => {})
             .catch((error) => {
-                console.log(error);
                 setAuthError(error.massage);
             });
 
@@ -139,13 +136,16 @@ const useFirebase = () => {
 
         deleteUser(user)
             .then(() => {
-                fetch(`http://localhost:5000/users/${user.email}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'content-type': 'application/json'
-                    },
-                    body: JSON.stringify(user)
-                })
+                fetch(
+                    `https://quiet-crag-38399.herokuapp.com/users/${user.email}`,
+                    {
+                        method: 'DELETE',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(user)
+                    }
+                )
                     .then((res) => res.json())
                     .then((data) => {
                         if (data.deletedCount) {
@@ -161,6 +161,9 @@ const useFirebase = () => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
+                getIdToken(user).then((idToken) =>
+                    localStorage.setItem('idToken', idToken)
+                );
                 setUser(user);
             } else {
                 setUser({});
@@ -168,10 +171,12 @@ const useFirebase = () => {
             setIsLoading(false);
         });
         return () => unsubscribe;
-    }, []);
+    }, [auth]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/users_admin/${user.email}`)
+        fetch(
+            `https://quiet-crag-38399.herokuapp.com/users_admin/${user.email}`
+        )
             .then((res) => res.json())
             .then((result) => setAdmin(result.admin));
     }, [user.email]);
